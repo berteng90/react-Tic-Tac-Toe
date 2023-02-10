@@ -3,14 +3,24 @@ import Square from "./Square";
 
 export default function GameBoard() {
   const [square, setSquare] = useState(Array(9).fill(null));
+
   function handleClick(i) {
     const nextSquare = square.slice();
     nextSquare[i] = "X";
-    setSquare(nextSquare);
+    handleAI(nextSquare);
   }
 
-  function handleAI() {}
-  console.log(square);
+  function handleAI(nextSquare) {
+    console.log(nextSquare);
+    const random = Math.floor(Math.random() * 9);
+    if (nextSquare[random] === null) {
+      nextSquare[random] = "O";
+      setSquare(nextSquare);
+    } else {
+      handleAI(nextSquare);
+    }
+  }
+
   return (
     <div id="gameboard">
       <div className="board-row">
